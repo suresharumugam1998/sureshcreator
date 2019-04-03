@@ -1,0 +1,40 @@
+#include<conio.h>
+#include<stdio.h>
+int main(void)
+{
+int a[100],b[100],num,i,j,k=0,min,temp;
+scanf("%d",&num);
+for(i=0;i<num;i++)
+{
+scanf("%d",&a[i]);
+}
+for(i=0;i<num;i++)
+{
+for(j=i+1;j<num;j++)
+{
+if(a[i]==a[j])
+{
+b[k]=a[j];
+k++;
+a[j]='$';
+}
+}
+}
+min=b[0];
+for(i=0;i<k;i++)
+{
+if(b[i]<min)
+{
+temp=b[i];
+b[i]=min;
+min=temp;
+}
+}
+for(i=0;i<k;i++)
+{
+if(b[i]!='$')
+printf("%d\n",b[i]);
+return 0;
+}
+getch();
+}
