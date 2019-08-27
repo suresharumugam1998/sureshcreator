@@ -6,14 +6,14 @@ import urllib
 import cv2
 import json
 def ExtractNumbers(List):
-    for index,Row in List.iterrows():
-       Response = urllib.request.urlopen(Row[0])
+    for index,R in List.iterrows():
+       Response = urllib.request.urlopen(R[0])
         Img = np.array(Image.open(Response))
          Images.append(Img)
-        xt = Row[1][0]['x']*Img.shape[1]
-        yt = Row[1][0]['y']*Img.shape[0]
-        xb = Row[1][1]['x']*Img.shape[1]
-        yb = Row[1][1]['y']*Img.shape[0]
+        xt = R[1][0]['x']*Img.shape[1]
+        yt = R[1][0]['y']*Img.shape[0]
+        xb = R[1][1]['x']*Img.shape[1]
+        yb = R[1][1]['y']*Img.shape[0]
          fullImage = Image.fromarray(Img)
         plateImage = fullImage.crop((xt,yt,xb,yb))
         Plates.append(np.array(plateImage))
@@ -30,6 +30,6 @@ if __name__== "__main__":
   List = pd.read_json('Indian_Number_plates.json', lines=True)
     pd.set_option('display.max_colwidth', -1)
      del List['extras']
-    List['points'] = List.apply(lambda Row: Row['annotation'][0]['points'], axis=1)
+    List['points'] = List.apply(lambda R: R['annotation'][0]['points'], axis=1)
     del List['annotation']
     ExtractNumbers(List)
